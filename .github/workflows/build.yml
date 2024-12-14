@@ -53,8 +53,8 @@ jobs:
       - name: Package Linux App
         if: matrix.os == 'ubuntu-latest'
         run: |
-          cd ${{ matrix.output_path }}
-          tar czf ../../../${{ matrix.asset_name }} .
+          cd build/linux/x64/release/bundle
+          tar -czf "${GITHUB_WORKSPACE}/${{ matrix.asset_name }}" *
       
       - name: Package macOS App
         if: matrix.os == 'macos-latest'
@@ -77,7 +77,7 @@ jobs:
           Compress-Archive -Path ${{ matrix.output_path }}/* -DestinationPath ${{ matrix.asset_name }}
       
       - name: Upload Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.build_target }}-build
           path: ${{ matrix.asset_name }}
@@ -88,4 +88,4 @@ jobs:
         with:
           files: ${{ matrix.asset_name }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
