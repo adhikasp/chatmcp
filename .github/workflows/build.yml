@@ -35,6 +35,9 @@ jobs:
           channel: 'stable'
           flutter-version: '3.27.0'
       
+      - name: Create empty .env file
+        run: touch .env
+
       - name: Install Linux Dependencies
         if: matrix.os == 'ubuntu-latest'
         run: |
